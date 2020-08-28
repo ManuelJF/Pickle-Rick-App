@@ -1,5 +1,9 @@
-import { characterTypes } from './actiontTypes'
+import { characterTypes } from './actionTypes'
+import characterActions from './characters'
 
-export default {
-  characterTypes
+const actions = {
+  characterTypes,
+  characterActions
 }
+
+export default actions

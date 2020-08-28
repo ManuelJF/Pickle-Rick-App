@@ -1,36 +1,40 @@
-import actionTypes from '../actions'
+import actions from '../actions'
 
 const initialState = {
-  totalOfElements: 0,
-  currentPage: 1,
-  lastPage: 1,
   result: [],
   isLoading: false,
   isError: false,
-  error: null
+  error: null,
+  canFetchMore: false
 }
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionTypes.characterTypes.GET_CHARACTERS_INIT:
+    case actions.characterTypes.GET_CHARACTERS_INIT:
       return {
         ...state,
         isLoading: true
       }
-    case actionTypes.characterTypes.GET_CHARACTERS_SUCCESS:
+    case actions.characterTypes.GET_CHARACTERS_SUCCESS:
       return {
         ...state,
-        lastPage: payload.pages,
-        result: payload.results,
-        totalOfElements: payload.count,
-        isLoading: false
+        lastPage: payload.lastPage,
+        result: payload.onRefresh ? payload.result : [...state.result, ...payload.result],
+        isLoading: false,
+        canFetchMore: payload.canFetchMore,
+        nextPage: payload.nextPage,
+        isError: false,
+        error: null
       }
-    case actionTypes.characterTypes.GET_CHARACTERS_FAILURE:
+    case actions.characterTypes.GET_CHARACTERS_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
-        error: payload
+        error: payload,
+        canFetchMore: false,
+        lastPage: 0,
+        result: []
       }
     default:
       return state

@@ -5,20 +5,26 @@ import {
   View,
   Text
 } from 'react-native'
+import { Provider } from 'react-redux'
+import store from './src/store'
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
+    <Provider store={store}>
+      <SafeAreaView
+        style={{ flex: 1 }}
       >
-        <Text>Pickle Rickkkkkkkkkkkkkk!</Text>
-      </View>
-    </SafeAreaView>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Text>Pickle Rickkkkkkkkkkkkkk!</Text>
+        </View>
+      </SafeAreaView>
+    </Provider>
   )
 }
 
